@@ -4,12 +4,13 @@
 #include <iostream>
 #include <strstream>
 
-int main(int argc, char **argv)
+template<class T>
+void runFromStdin(T interpreter, bool debug)
 {
     std::ostrstream oss;
+    interpreter.setDebug(debug);
     
-    std::cout << "Interpreter" << std::endl;
-
+    std::cout << "Interpreter [" << interpreter.name << "]" << std::endl;
     while(std::cin)
     {
         std::string line;
@@ -17,10 +18,16 @@ int main(int argc, char **argv)
         oss << line << "\n";
     }
     std::string program = oss.str();
-    std::cout << "Program is:\n" <<  program << std::endl;
 
-    BFInterpreter bfi(program);
-    bfi.run();
+    typename T::parseResult_t pr = interpreter.parse(program);
+    interpreter.run(pr);
+}
+    
+
+int main(int argc, char **argv)
+{
+
+    runFromStdin(BFInterpreter(), true);
     
     return 0;
 }

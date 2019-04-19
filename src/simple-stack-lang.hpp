@@ -12,10 +12,10 @@ struct BFInterpreter
     int stackSize;
     std::string program;
     std::set<char> validCommands;
-    static constexpr bool debug=true;
+    bool debug=false;
+    std::string name="BrainF*ck";
 
-    BFInterpreter(std::string iprogram, int istackSize=30000) {
-        program = iprogram;
+    BFInterpreter(int istackSize=30000) {
         stackSize = istackSize;
 
         validCommands.insert('+');
@@ -26,20 +26,20 @@ struct BFInterpreter
         validCommands.insert('[');
         validCommands.insert(',');
         validCommands.insert('.');        
-        
-        doParse();
     }
 
+    void setDebug(bool d) { debug=d; }
 
-    std::vector<char> programCommands;
-    
-    void doParse() {
+    typedef std::vector<char> parseResult_t;
+    parseResult_t parse(std::string program) {
+        parseResult_t programCommands;
         for(auto c : program)
             if(validCommands.find(c) != validCommands.end())
                 programCommands.push_back(c);
+        return programCommands;
     }
 
-    void run() {
+    void run(const parseResult_t &programCommands) {
         int stk0=stackSize/2, pgm=0, stk=0;
         std::deque<int> loopPoints;
         std::vector<int> stack;
