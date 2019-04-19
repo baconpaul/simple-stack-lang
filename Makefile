@@ -4,11 +4,9 @@ bin:
 bin/interpret:	bin example/interpret.cpp src/simple-stack-lang.hpp
 	clang -std=c++14 -O -I src -o bin/interpret example/interpret.cpp -lc++
 
-run:	bin/interpret
-	cat example/mul.smsl | ./bin/interpret
 
-%.run:	bin/interpret
-	cat example/$*.smsl | bin/interpret
+%.bf.run:	bin/interpret
+	cat example/bf/$*.bf | bin/interpret -bf
 
 clean:
 	rm -rf bin
