@@ -1,4 +1,3 @@
-#define IMPLEMENT_SIMPLE_STACK_LANG
 #include "simple-stack-lang.hpp"
 #include <iomanip>
 #include <iostream>
@@ -26,8 +25,14 @@ void runFromStdin(T interpreter, bool debug)
 
 int main(int argc, char **argv)
 {
+    std::string lang = "--bf";
+    if( argc >= 2 )
+        lang = argv[ 1 ];
 
-    runFromStdin(BFInterpreter(), true);
+    if(lang=="--bf")
+        runFromStdin(BFInterpreter<>(), false);
+    if(lang=="--ls")
+        runFromStdin(LilStackInterpeter<>(), true );
     
     return 0;
 }

@@ -6,7 +6,10 @@ bin/interpret:	bin example/interpret.cpp src/simple-stack-lang.hpp
 
 
 %.bf.run:	bin/interpret
-	cat example/bf/$*.bf | bin/interpret -bf
+	cat example/bf/$*.bf | bin/interpret --bf
+
+%.ls.run:	bin/interpret
+	cat example/ls/$*.lssl | bin/interpret --ls
 
 clean:
 	rm -rf bin

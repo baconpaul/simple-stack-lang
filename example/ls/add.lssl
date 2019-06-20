@@ -1,0 +1,28 @@
+# This adds two numbers on the stack and outputs them
+movs 1
+sets 7
+
+movs 1
+sets 2
+  
+movs -2
+adds 1 # Adds s+1 and s+2; deposits it in s
+out
+
+muls 1 # muls s+1 and s+2; deposits it in s
+out
+
+# And another way to mutiply
+sets 0
+movs 1
+sets 7
+movs 1
+sets 3
+while
+  movs -2
+  adds 0  # adds s+0 and s+1; deposits it in s+0
+  movs 2
+  dec
+elihw # loops unless stack is 0
+movs -2
+out
